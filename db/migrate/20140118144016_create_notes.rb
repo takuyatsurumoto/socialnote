@@ -7,5 +7,6 @@ class CreateNotes < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_foreign_key :comments, :notes
   end
 end

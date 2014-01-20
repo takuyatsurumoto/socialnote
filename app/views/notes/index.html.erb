@@ -1,31 +1,15 @@
 <h1>Listing notes</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Picture</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @notes.each do |note| %>
-      <tr>
-        <td><%= note.title %></td>
-        <td><%= note.description %></td>
-        <td><%= note.picture %></td>
-        <td><%= link_to 'Show', note %></td>
-        <td><%= link_to 'Edit', edit_note_path(note) %></td>
-        <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<% @notes.in_groups_of(3) do |group| %>
+  <div class="row">
+    <% group.compact.each do |note| %>
+      <div class="span4">
+        <%= image_tag note.picture_url, :width => '100%' if note.picture.present?%>
+          <h4><%= link_to note.title, note %></h4>
+        <%= note.description %>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+<% end %>
 
-<br>
-
-<%= link_to 'New Note', new_note_path %>
+<br />
